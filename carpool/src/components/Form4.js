@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
+import DateTimePicker from "react-native-modal-datetime-picker";
 import apiKey from '../../google-api-key';
 
 export default class Form4 extends Component<{}> {
@@ -24,10 +25,26 @@ export default class Form4 extends Component<{}> {
         seats:"",
         destination:"",
         predictions:[],
-        type:""
+        type:"",
+        isDateTimePickerVisible: false,
+        date_time:""
     }
     this.add=this.add.bind(this);
   }
+
+  showDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: true });
+  };
+ 
+  hideDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: false });
+  };
+ 
+  handleDatePicked = datetime => {
+    //console.warn("A date has been picked: ", date);
+    this.setState({ date_time:datetime.toLocaleDateString() +" "+datetime.toLocaleTimeString() });
+    this.hideDateTimePicker();
+  };
 
   updateLocation(field , value) {
     this.setState({
@@ -79,6 +96,7 @@ export default class Form4 extends Component<{}> {
          from:this.state.from,
          to:this.state.to,
          seats:this.state.seats,
+         date_time:this.state.date_time,
          id:this.props.id
          },
          {
@@ -118,8 +136,8 @@ export default class Form4 extends Component<{}> {
               <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="from"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               value={this.state.orgin}
               onChangeText={(value) => this.updateValue("orgin",value)}
@@ -128,8 +146,8 @@ export default class Form4 extends Component<{}> {
               <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="to"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               value={this.state.destination}
               onChangeText={(value) => this.updateValue("destination",value)}
@@ -138,11 +156,22 @@ export default class Form4 extends Component<{}> {
                <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="seats"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="numeric"
               onChangeText={(value) => this.updateValue("seats",value)}
               />        
+               <TouchableOpacity onPress={this.showDateTimePicker} style={styles.button}>
+                <Text style={styles.buttonText}>Date & Time</Text>
+              </TouchableOpacity>
+              <DateTimePicker
+                isVisible={this.state.isDateTimePickerVisible}
+                onConfirm={this.handleDatePicked}
+                onCancel={this.hideDateTimePicker}
+                timePickerModeAndroid="spinner"
+                mode='datetime'
+              />
+              <Text>{this.state.date_time}</Text>
             <TouchableOpacity onPress = {this.add} style={styles.button}>
                 <Text style={styles.buttonText}>Post</Text>
             </TouchableOpacity>     
@@ -161,16 +190,16 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    borderBottomColor:'rgba(255, 255,255,0.2)',
+    borderBottomColor:'#00796b',
     borderBottomWidth: 1,
     paddingHorizontal:16,
     fontSize:16,
-    color:'#ffffff',
+    color:'#00796b',
     marginVertical: 10
   },
   button: {
     width:300,
-    backgroundColor:'#1b1b1b',
+    backgroundColor:'#004c40',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13
@@ -182,8 +211,8 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   suggestions:{
-    backgroundColor:'#424242',
-    color:'#ffffff',
+    backgroundColor:'#eeeeee',
+    color:'#00796b',
      padding:5,
      fontSize:18,
      borderWidth:0.5,

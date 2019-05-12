@@ -60,48 +60,48 @@ export default class Form2 extends Component<{}> {
           <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="First Name"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               onChangeText={(value) => this.updateValue("firstName",value)}
               />
             <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Last Name"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               onChangeText={(value) => this.updateValue("lastName",value)}
               />
              <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Email"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="email-address"
               onChangeText={(value) => this.updateValue("email",value)}
               />
               <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Mobile"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="phone-pad"
               onChangeText={(value) => this.updateValue("phone",value)}
               />
              <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Address"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               onChangeText={(value) => this.updateValue("address",value)}
               />
              <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="Gender"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               onChangeText={(value) => this.updateValue("gender",value)}
               />
@@ -124,16 +124,16 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    borderBottomColor:'rgba(255, 255,255,0.2)',
+    borderBottomColor:'#00796b',
     borderBottomWidth: 1,
     paddingHorizontal:16,
     fontSize:16,
-    color:'#ffffff',
+    color:'#00796b',
     marginVertical: 10
   },
   button: {
     width:300,
-    backgroundColor:'#1b1b1b',
+    backgroundColor:'#004c40',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13

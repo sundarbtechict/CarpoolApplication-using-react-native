@@ -88,16 +88,16 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    backgroundColor:'rgba(255, 255,255,0.2)',
+    backgroundColor:'#48a999',
     borderRadius: 25,
     paddingHorizontal:16,
     fontSize:16,
-    color:'#ffffff',
+    color:'#e0e0e0',
     marginVertical: 10
   },
   button: {
     width:300,
-    backgroundColor:'#1b1b1b',
+    backgroundColor:'#004c40',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13

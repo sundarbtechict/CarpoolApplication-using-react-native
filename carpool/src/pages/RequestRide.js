@@ -29,7 +29,7 @@ render() {
 }
 const styles = StyleSheet.create({
   container : {
-    backgroundColor:'#424242',
+    backgroundColor:'#eeeeee',
     flex: 1,
     alignItems:'center'
   },
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width:200,
-    backgroundColor:'#1b1b1b',
+    backgroundColor:'#004c40',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13

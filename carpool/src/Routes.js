@@ -6,7 +6,10 @@ import Signup from './pages/Signup';
 import Home from './pages/Home';
 import RequestRide from './pages/RequestRide';
 import OfferRide from './pages/OfferRide';
-import Get from './pages/Get';
+import GetDrivers from './pages/GetDrivers';
+import DriverDetails from './pages/DriverDetails';
+import GetRiders from './pages/GetRiders';
+import RiderDetails from './pages/RiderDetails';
 
 export default class Routes extends Component<{}> {
 	render() {
@@ -18,7 +21,10 @@ export default class Routes extends Component<{}> {
 						<scene key="home" component={Home} title="Home" />
 						<scene key="requestRide" component={RequestRide} title="RequestRide" />
 						<scene key="offerRide" component={OfferRide} title="OfferRide" />
-						<scene key="get" component={Get} title="get"/>
+						<scene key="getDrivers" component={GetDrivers} title="GetDrivers" />
+						<scene key="driverDetails" component={DriverDetails} title="DriverDetails" />
+						<scene key="getRider" component={GetRiders} title="GetRiders"/>
+						<scene key="riderDetails" component={RiderDetails} title="RiderDetails" />
 			    </Stack>
 			 </Router>
 			)

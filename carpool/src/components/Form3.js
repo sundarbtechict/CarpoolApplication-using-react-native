@@ -13,6 +13,7 @@ import {
 
 import apiKey from '../../google-api-key';
 import {Actions} from 'react-native-router-flux';
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 
 export default class Form3 extends Component<{}> {
@@ -24,10 +25,26 @@ export default class Form3 extends Component<{}> {
       orgin:"",
       destination:"",
       predictions:[],
-      type:""
+      type:"",
+      isDateTimePickerVisible: false,
+      date_time:""
     };
     this.add=this.add.bind(this);
   }
+
+  showDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: true });
+  };
+ 
+  hideDateTimePicker = () => {
+    this.setState({ isDateTimePickerVisible: false });
+  };
+ 
+  handleDatePicked = datetime => {
+    //console.warn("A date has been picked: ", datetime.toLocaleTimeString());
+   this.setState({ date_time:datetime.toLocaleDateString() +" "+datetime.toLocaleTimeString() });
+    this.hideDateTimePicker();
+  };
 
   updateLocation(field , value) {
     this.setState({
@@ -59,7 +76,6 @@ export default class Form3 extends Component<{}> {
   async getLatAndLong(address,field){
     const apiUrl='https://maps.googleapis.com/maps/api/geocode/json?'
     +'key='+apiKey+'&address='+address;
-    
     await axios.get(apiUrl)
         .then( (response) =>  {
           const json =  response.data;
@@ -75,14 +91,15 @@ export default class Form3 extends Component<{}> {
     //    console.warn(this.props.id);
     await this.getLatAndLong(this.state.orgin,"from");
     await this.getLatAndLong(this.state.destination,"to");
-    // console.warn(this.state.from+ ":");
-    // console.warn(this.state.to+" :");
+    //  console.warn(this.state.from+ ":from");
+    //  console.warn(this.state.to+" :to");
     // console.warn(this.state.orgin+" orgin");
     //  console.warn(this.state.destination+" destination");
     
         axios.post('http://172.22.9.59:8080/riderSchedule/', {
          from:this.state.from,
          to:this.state.to,
+         date_time:this.state.date_time,
          id:this.props.id
          },
          {
@@ -90,7 +107,7 @@ export default class Form3 extends Component<{}> {
           'Content-Type': 'application/json',
         })
       .then(function (response) {
-        Actions.get();
+        Actions.getDrivers();
       }).catch(function (error) {
         Alert.alert("hi"+error);
     });      
@@ -122,8 +139,8 @@ export default class Form3 extends Component<{}> {
               <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="pick up location"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               value={this.state.orgin}
               onChangeText={(value) => this.updateValue("orgin",value)}
@@ -132,13 +149,24 @@ export default class Form3 extends Component<{}> {
               <TextInput style={styles.inputBox} 
               underlineColorAndroid='rgba(0,0,0,0)' 
               placeholder="drop location"
-              placeholderTextColor = "#ffffff"
-              selectionColor="#fff"
+              placeholderTextColor = "#439889"
+              selectionColor="#00796b"
               keyboardType="default"
               value={this.state.destination}
               onChangeText={(value) => this.updateValue("destination",value)}
               />
               {predictions2 }
+              <TouchableOpacity onPress={this.showDateTimePicker} style={styles.button}>
+                <Text style={styles.buttonText}>pick up Date & Time</Text>
+              </TouchableOpacity>
+              <DateTimePicker
+                isVisible={this.state.isDateTimePickerVisible}
+                onConfirm={this.handleDatePicked}
+                onCancel={this.hideDateTimePicker}
+                timePickerModeAndroid="spinner"
+                mode='datetime'
+              />
+              <Text>{this.state.date_time}</Text>
             <TouchableOpacity onPress = {this.add} style={styles.button}>
                 <Text style={styles.buttonText}>Post</Text>
             </TouchableOpacity>     
@@ -157,16 +185,16 @@ const styles = StyleSheet.create({
 
   inputBox: {
     width:300,
-    borderBottomColor:'rgba(255, 255,255,0.2)',
+    borderBottomColor:'#00796b',
     borderBottomWidth: 1,
     paddingHorizontal:16,
     fontSize:16,
-    color:'#ffffff',
+    color:'#00796b',
     marginVertical: 10
   },
   button: {
     width:300,
-    backgroundColor:'#1b1b1b',
+    backgroundColor:'#004c40',
      borderRadius: 25,
       marginVertical: 10,
       paddingVertical: 13
@@ -178,8 +206,8 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   suggestions:{
-    backgroundColor:'#424242',
-    color:'#ffffff',
+    backgroundColor:'#eeeeee',
+    color:'#00796b',
      padding:5,
      fontSize:18,
      borderWidth:0.5,
